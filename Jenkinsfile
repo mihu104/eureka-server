@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
 				sh "mvn package docker:build -Dmaven.test.skip=true"
-                sh "chmod +x push.sh && bash push.sh"
+                sh "chmod +x push.sh && sh push.sh"
             }
         }
     }
