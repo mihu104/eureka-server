@@ -28,16 +28,16 @@ pipeline {
 				
             }
         }
-		
-    }
-	agent {label 'deploy-slave'}
-	    stages {
-	stage('deploy') {
-		agent {label 'deploy-slave'}
+		stage('deploy') {
+	   agent {label 'deploy-slave'}
+	
             steps {
 				sh "docker pull huxiaofeng/${proname}:${prover}"
 				
             }
-        }
+        
 		}
+		
+    }
+	
 }
