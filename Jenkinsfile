@@ -7,6 +7,7 @@ pipeline {
     }
     stages {
         stage('Build') {
+		agent {label 'maven-slave'}
 		
             steps {
 				sh "mvn package docker:build -Dmaven.test.skip=true"
@@ -16,6 +17,13 @@ pipeline {
 
 	  }
                 sh "docker push huxiaofeng/${proname}:${prover}"
+				
+            }
+        }
+		stage('deploy') {
+		agent {label 'deploy-slave'}
+            steps {
+				sh "docker pull huxiaofeng/${proname}:${prover}"
 				
             }
         }
