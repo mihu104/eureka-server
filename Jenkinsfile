@@ -10,6 +10,7 @@ pipeline {
             steps {
 				sh "mvn package docker:build -Dmaven.test.skip=true"
                 sh "chmod +x push.sh && sh push.sh"
+				sh "date"
             }
         }
     }
