@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'huxiaofeng/maven:1.2'
+            image 'maven:3-alpine'
             args '-v /var/run/docker.sock:/var/run/docker.sock -v /home/jenkins:/home/jenkins -v /home/jenkins/.dockercfg:/home/jenkins/.dockercfg'
         }
     }
