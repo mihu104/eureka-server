@@ -21,10 +21,10 @@ pipeline {
         }
 		stage('deploy') {
 	   agent {label 'deploy-slave'}
-
+        options { skipDefaultCheckout() }
 
             steps {
-				    deleteDir()
+				   
 				sh "docker pull huxiaofeng/${proname}:${prover}"
 				sh "docker run -d --name ${proname} -p 8761:8761 huxiaofeng/${proname}:${prover}"
 				
