@@ -1,12 +1,8 @@
 pipeline {
-    agent {
-        docker {
-            image 'huxiaofeng/maven:1.2'
-            args '-v /var/run/docker.sock:/var/run/docker.sock -v /home/jenkins:/home/jenkins -v /home/jenkins/.dockercfg:/home/jenkins/.dockercfg'
-        }
-    }
+    agent none
     stages {
 	    stage('checkout') {
+		 agent {label 'maven-slave'}
 		steps {
         echo "1.下载代码"
         dir('code') {
@@ -15,8 +11,12 @@ pipeline {
 		  }
 		  }
         stage('Build') {
-		agent {label 'maven-slave'}
-		
+		agent {
+        docker {
+            image 'huxiaofeng/maven:1.2'
+            args '-v /var/run/docker.sock:/var/run/docker.sock -v /home/jenkins:/home/jenkins -v /home/jenkins/.dockercfg:/home/jenkins/.dockercfg'
+        }
+    }
             steps {
 				sh "mvn package docker:build -Dmaven.test.skip=true"
 				script {
