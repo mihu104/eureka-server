@@ -1,13 +1,6 @@
 pipeline {
     agent none
     stages {
-	    stage('checkout') {
-		 agent {label 'maven-slave'}
-		steps {
-        echo "1.下载代码"
-        checkout scm
-		  }
-		  }
         stage('Build') {
 		agent {
         docker {
@@ -28,10 +21,11 @@ pipeline {
         }
 		stage('deploy') {
 	   agent {label 'deploy-slave'}
-	
+	   deleteDir()
+
             steps {
 				sh "docker pull huxiaofeng/${proname}:${prover}"
-				sh "docker run -d huxiaofeng/${proname}:${prover}"
+				sh "docker run -d --name ${proname} -p 8761:8761 huxiaofeng/${proname}:${prover}"
 				
             }
         
