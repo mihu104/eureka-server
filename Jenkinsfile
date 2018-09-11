@@ -18,7 +18,7 @@ pipeline {
         }
     }
             steps {
-				sh "mvn package docker:build -Dmaven.test.skip=true"
+				sh "cd code && mvn package docker:build -Dmaven.test.skip=true"
 				script {
 				prover=sh(returnStdout: true, script: "mvn -q -N -Dexec.executable='echo'  -Dexec.args='\${project.version}'  org.codehaus.mojo:exec-maven-plugin:1.3.1:exec").trim()
       		    proname=sh(returnStdout: true, script: "mvn -q -N -Dexec.executable='echo'  -Dexec.args='\${project.artifactId}'  org.codehaus.mojo:exec-maven-plugin:1.3.1:exec").trim()
@@ -33,6 +33,7 @@ pipeline {
 	
             steps {
 				sh "docker pull huxiaofeng/${proname}:${prover}"
+				sh "docker run -d huxiaofeng/${proname}:${prover}"
 				
             }
         
