@@ -31,7 +31,7 @@ pipeline {
 
 
             steps {
-			  scrip
+			  script
           {
                 def input = params.YESORNO
                 if (input){			
