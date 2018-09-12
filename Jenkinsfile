@@ -20,16 +20,16 @@ pipeline {
             }
         }
 		stage('deploy') {
-		options { timeout(time: 10, unit: 'SECONDS'){
-		input message:'Approve deployment?', submitter: 'it-ops'}
-		}
+		options { timeout(time: 10, unit: 'SECONDS')}
 	
        
 	   agent {label 'deploy-slave'}
         options { skipDefaultCheckout() }
 
             steps {
-				   
+				script {
+input "确认要部署到测试环境吗？"
+}				
 				sh "docker pull huxiaofeng/${proname}:${prover}"
 				sh "docker run -d --name ${proname} -p 8761:8761 huxiaofeng/${proname}:${prover}"
 				
