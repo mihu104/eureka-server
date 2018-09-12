@@ -31,15 +31,13 @@ pipeline {
 
 
             steps {
-			  script
-          {
+			  script {
                 def input = params.YESORNO
-                if (input){			
+                if (input) {			
 				sh "docker pull huxiaofeng/${proname}:${prover}"
 				sh "docker run -d --name ${proname} -p 8761:8761 huxiaofeng/${proname}:${prover}"
 				}
-				  else
-            {
+				  else {
               echo "本次提交未进行部署"
             }
 			}
