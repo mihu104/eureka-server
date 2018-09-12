@@ -20,6 +20,11 @@ pipeline {
             }
         }
 		stage('deploy') {
+		options { timeout(time: 10, unit: 'SECONDS'){
+		input message:'Approve deployment?', submitter: 'it-ops'}
+		}
+	
+       
 	   agent {label 'deploy-slave'}
         options { skipDefaultCheckout() }
 
