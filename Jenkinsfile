@@ -1,5 +1,8 @@
 pipeline {
     agent none
+	parameters{
+        booleanParam(name: 'YESORNO', defaultValue: false, description: '是否进行部署')
+    }
     stages {
         stage('Build') {
 		agent {
@@ -30,11 +33,18 @@ pipeline {
 
 
             steps {
-				script {
-input "确认要部署到测试环境吗？"
-}				
+			  scrip
+          {
+                def input = params.YESORNO
+                if input{			
 				sh "docker pull huxiaofeng/${proname}:${prover}"
 				sh "docker run -d --name ${proname} -p 8761:8761 huxiaofeng/${proname}:${prover}"
+				}
+				  else
+            {
+              echo "本次提交未进行部署"
+            }
+			}
 				
             }
         
