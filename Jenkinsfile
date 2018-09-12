@@ -20,11 +20,14 @@ pipeline {
             }
         }
 		stage('deploy') {
-		options { timeout(time: 10, unit: 'SECONDS')}
 	
        
 	   agent {label 'deploy-slave'}
-        options { skipDefaultCheckout() }
+        options { skipDefaultCheckout() 
+		      timeout(time: 10, unit: 'SECONDS')
+		}
+		
+
 
             steps {
 				script {
