@@ -35,7 +35,7 @@ pipeline {
                 def input = params.YESORNO
                 if (input) {			
 				sh "docker pull huxiaofeng/${proname}:${prover}"
-				sh "docker run -d --name ${proname} -p 8761:8761 huxiaofeng/${proname}:${prover}"
+				sh " docker ps  -q --filter name=${proname}-testnew | xargs docker rm  -f && docker run -d --name ${proname}-testnew -p 8761:8761 huxiaofeng/${proname}:${prover}"
 				}
 				  else {
               echo "本次提交未进行部署"
