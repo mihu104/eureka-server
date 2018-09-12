@@ -26,9 +26,7 @@ pipeline {
 	
        
 	   agent {label 'deploy-slave'}
-        options { skipDefaultCheckout() 
-		      timeout(time: 10, unit: 'SECONDS')
-		}
+        options { skipDefaultCheckout()  }
 		
 
 
@@ -36,7 +34,7 @@ pipeline {
 			  scrip
           {
                 def input = params.YESORNO
-                if input{			
+                if (input){			
 				sh "docker pull huxiaofeng/${proname}:${prover}"
 				sh "docker run -d --name ${proname} -p 8761:8761 huxiaofeng/${proname}:${prover}"
 				}
